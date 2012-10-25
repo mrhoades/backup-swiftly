@@ -1,0 +1,36 @@
+
+CONFIG SETUP:
+
+    1. Configure hpcloud account credentials in ./tests/config.json
+
+    2. Configure remote host info (for use with remote test)
+
+    3. Add the remote execution host identify file to the host executing the script
+       ssh-add remotehost_identity_key
+
+TESTS:
+
+    1 . test_backup_swiftly.py
+
+        This test will run locally on a linux machine and:
+
+        Tar up test files
+        Encrypt test files
+        Upload to swift
+        Download from swift
+        Decrypt
+        Unpack
+        Compare what was pushed to swift and what was pulled from swift, to make sure they are identical.
+
+    2. test_ssh_remote_backup_swiftly.py
+
+        This wraps the test above, yet it does it on a remote machine over ssh.
+
+
+HOW TO RUN:
+
+    python test_backup_swiftly.py
+
+    python test_ssh_remote_backup_swiftly.py
+
+

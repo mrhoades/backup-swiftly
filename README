@@ -1,0 +1,60 @@
+
+SYNOPSIS:
+
+    These scripts are used to backup linux server files to the HP Cloud Object Store (SWIFT).
+
+    Directories to be backed up, will be tar'd, encrypted, and then pushed to SWIFT for safe keeping.
+
+
+EXAMPLES:
+
+    1. Run script locally to backup local files to SWIFT
+
+    python backup_to_swift.py -c ./config.json
+
+    2. Run script locally, that will SSH/SCP scripts to remote server and execute backup script on remote server
+
+    python remote_backup_swiftly.py -s git.paas.hpcloud.net -u root -i ./identify_file.pem -d /mnt/backup -c ./config.json
+
+    3. Download and decrypt files from SWIFT. Note that partial strings or regex can be used to match multiple files to download.
+
+    python download_decrypt_and_upack_swift_files.py -c ./config.json -n Git-Backups -f .*
+
+
+
+
+CONFIG INFO:
+
+    1. Configure hpcloud_account_info in config.json (default) or create multiple custom_config.json using the same schema,
+       and pass desired config to backup_to_swift.py using the '-c' switch.
+
+    {
+        "hpcloud_account_info":{
+            "auth_url": "https://region-a.geo-1.identity.hpcloudsvc.com:35357/v2.0/",
+            "tenant_name": "hpcs.paas@hp.com-tenant1",
+            "username": "hpcs.paas@hp.com",
+            "password": "shay.hello.to.my.little.friend"
+        },
+        "backup_node_info":{
+            "server_name": "git.paas.hpcloud.net",
+            "backup_dir_to_swift":"/var/lib/git",
+            "swift_container_name":"git.paas.backups"
+        }
+    }
+
+    2. Configure the backup_node_info section to describe the server and directories that are to be backed up.
+
+        server_name - this can be the FQDN or IP of the server
+
+        backup_dir_to_swift - this can be a single directory or a comma separated list
+
+        swift_container_name - container to store the encrypted tar packages in. this will be created if it doesn't exist.
+
+
+
+ASSUMPTIONS and GOTCHAS:
+
+    1. the user account used to run the script has permissions to all directories defined to be backed up.
+       so run as root, or ubuntu (assuming ubuntu can "sudo su" without a permission prompt).
+
+    2. The directory to be backed up should not be larger than 5GB after being tar'd and gzip'd.

@@ -1,0 +1,13 @@
+{
+    "hpcloud_account_info":{
+        "auth_url": "https://region-a.geo-1.identity.hpcloudsvc.com:35357/v2.0/",
+        "tenant_name": "mrhoades@hp.com-tenant1",
+        "username": "rocketboy",
+        "password": ""
+    },
+    "backup_node_info":{
+        "server_name": "jenkins-standby.paas.hpcloud.net",
+        "backup_dir_to_swift":"./test_backup_files",
+        "swift_container_name":"test-backups"
+    }
+}
