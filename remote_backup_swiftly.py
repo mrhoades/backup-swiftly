@@ -30,7 +30,7 @@ logger.setLevel(logging.DEBUG)
 
 
 # ssh connection info and creds
-sshinfo = ssh_connection_info(options.hostname, options.username, options.identity_file)
+sshinfo = ssh_connection_info(options.hostname, options.username, None, options.identity_file)
 
 
 # generate unique backup and drop dirs
