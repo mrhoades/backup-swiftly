@@ -12,12 +12,19 @@ class ssh_remote_client:
         self.client.load_system_host_keys()
         self.client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
-        self.logger.info("SSH Connect to remote host at: " + SSHConnectionInfo.server_name_or_ip)
+        self.logger.info("SSH CONNECT TO: ")
+        self.logger.info("HOST: " + SSHConnectionInfo.server_name_or_ip)
+        self.logger.info("USER: " + SSHConnectionInfo.username)
+        self.logger.info("PASS: *****************" )
+        self.logger.info("PORT: " + str(SSHConnectionInfo.port))
+        self.logger.info("IDENTITY_FILE: " + str(SSHConnectionInfo.identity_file_path))
         self.client.connect(SSHConnectionInfo.server_name_or_ip,
                             SSHConnectionInfo.port,
                             SSHConnectionInfo.username,
                             SSHConnectionInfo.password,
-                            None,None,5,
+                            None,
+                            SSHConnectionInfo.identity_file_path,
+                            5,
                             allow_agent=True,
                             look_for_keys=True)
 
