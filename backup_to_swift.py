@@ -3,7 +3,6 @@ import optparse
 import os
 import re
 import sys
-import socket
 import datetime
 import json
 import random
@@ -41,6 +40,7 @@ swift_container_name    = str(config['backup_node_info']['swift_container_name']
 
 backup_dirs_to_swift     = str(config['backup_node_info']['backup_dir_to_swift']).split(",")
 
+server_name    = str(config['backup_node_info']['server_name'])
 
 ##### backup scenario ######
 # 1. create a compressed tar file
@@ -59,13 +59,12 @@ randID = str(random.randint(100,999)) + "-" + str(random.randint(10000,99999))
 for backup_dir_path in backup_dirs_to_swift:
 
     #backup_dir_friendly_name  =  os.path.basename(re.sub("/$","", str(backup_dir_path))) # clean trailing slash
-    backup_dir_friendly_name  =  os.path.basename(re.sub("/","-", str(backup_dir_path))) # clean trailing slash
+    backup_dir_friendly_name  =  os.path.basename(re.sub("/","-", str(backup_dir_path))) # use to identify backup path
 
-    host = socket.gethostname()
     dateToday = datetime.datetime.today()
     date = dateToday.strftime("%Y-%m-%d")
 
-    backup_filename = "backup." + date + "." + host + "-" +randID + "-" + backup_dir_friendly_name
+    backup_filename = "backup." + date + "." + server_name + "-" +randID + "-" + backup_dir_friendly_name
     backup_filename_tar_gz = backup_filename + ".tar.gz"
     backup_filename_encrypted = backup_filename_tar_gz + ".encrypted"
 
@@ -77,6 +76,4 @@ for backup_dir_path in backup_dirs_to_swift:
     crypto.encrypt_file(creds.password, backup_filename_tar_gz, backup_filename_encrypted)
 
     swift.upload(swift_container_name, backup_filename_encrypted)
-
-
 
