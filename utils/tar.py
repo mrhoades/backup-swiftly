@@ -35,9 +35,8 @@ class tar:
             self.logger.info('Completed tar and compressing files with size of %0.1f MB'%(dir_size/(1024*1024.0)))
             return target_name
         except Exception as tarfile_exception:
-            self.logger.exception('tar snapshot failed : %s',
-                tarfile_exception)
-            return None
+            self.logger.exception('tar snapshot failed : %s',tarfile_exception)
+            raise Exception("TarCreationFailed",tarfile_exception)
 
 
     def extract(self, dest_path, tar_name):
