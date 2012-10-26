@@ -46,7 +46,7 @@ ssh = ssh_remote_client(sshinfo)
 
 
 # create script package - tar up all script files
-script_package_tar_gz = tar.create(os.path.dirname(__file__),"backup_swiftly")
+script_package_tar_gz = tar.create(os.path.abspath(os.path.join(os.path.abspath(__file__), os.path.pardir)),"backup_swiftly")
 
 
 # force create backup dir (soft fails if it already exists)
