@@ -5,8 +5,9 @@ CONFIG SETUP:
 
     2. Configure remote host info (for use with remote test)
 
-    3. Add the remote execution host identify file to the host executing the script
+    3. On the machine running the test script add the remote execution host identify file
        ssh-add remotehost_identity_key
+       ssh-add nova.keys.paas.jenkins.standby.pem
 
 TESTS:
 

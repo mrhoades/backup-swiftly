@@ -6,7 +6,7 @@ SYNOPSIS:
     Directories to be backed up, will be tar'd, encrypted, and then pushed to SWIFT for safe keeping.
 
 
-EXAMPLES:
+EXAMPLES (before running them setup your config like CONFIG INFO below):
 
     1. Run script locally to backup local files to SWIFT
 
