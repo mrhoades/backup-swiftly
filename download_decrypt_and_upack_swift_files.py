@@ -55,5 +55,5 @@ for item_name in swift_items:
 
     crypto.decrypt_file(creds.password, item_name, cleaned_name)
 
-    tar.extract(options.drop_dir,cleaned_name)
+    tar.extract(options.drop_dir + '/' + cleaned_name, cleaned_name)
 
