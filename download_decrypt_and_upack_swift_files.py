@@ -51,7 +51,7 @@ for item_name in swift_items:
 
     swift.download(options.swift_container_name, item_name, item_name)
 
-    cleaned_name = re.sub(".encrypted$","", item_name)
+    cleaned_name = re.sub(".encrypted$", "", item_name)
 
     crypto.decrypt_file(creds.password, item_name, cleaned_name)
 
