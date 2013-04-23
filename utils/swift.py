@@ -41,6 +41,29 @@ class swift:
 
             self.logger.exception('Failed to upload file to swift ' + str(err))
 
+    # incomplete at this time... finish this soon
+    # def upload_large(self, container_name, path_to_upload_file):
+    #
+    #     # split the file using some standard linux split method
+    #     # upload all the split files maintaining the
+    #     # create and or upload the manifest file that describes the object pieces
+    #
+    #     self.logger.info('Uploading file to swift container: ' + container_name + ":" + path_to_upload_file)
+    #
+    #     file_size = (os.path.getsize(path_to_upload_file)/(1024*1024.0))
+    #
+    #     self.logger.info('Size: %0.5f MB'%file_size)
+    #
+    #     try:
+    #         self.create_swift_container_if_not_exists(container_name)
+    #         start_time = time.time()
+    #         swiftapi.st_upload(self.opts, container_name, path_to_upload_file)
+    #         end_time = time.time()
+    #         self.logger.info('Completed uploading file %s in %0.2f seconds: ',path_to_upload_file,end_time-start_time)
+    #
+    #     except (swiftapi.ClientException, OSError, HTTPException, socket.error, Exception), err:
+    #
+    #         self.logger.exception('Failed to upload file to swift ' + str(err))
 
     def download(self, container_name, swift_file_name, save_to_file_name):
         self.logger.info('Downloading file from swift: ' + container_name + ":" + swift_file_name)
