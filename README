@@ -18,7 +18,7 @@ EXAMPLES (before running them setup your config like CONFIG INFO below):
 
     3. Download and decrypt files from SWIFT. Note that partial strings or regex can be used to match multiple files to download.
 
-    python download_decrypt_and_upack_swift_files.py -c ./config.json -n Git-Backups -f .*
+    python download_decrypt_and_upack_swift_files.py -c ./config.json -n Git-Backups -f backup.2013-02-27*mnt-lib-jenkins-plugins.tar.gz
 
 
 
