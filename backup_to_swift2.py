@@ -16,8 +16,8 @@ parser = optparse.OptionParser()
 parser.add_option("-n", "--name",
                   dest="backup_preamble",
                   action="store",
-                  help="Filename Preamble for file packages put in swift. For example 'PAAS-JENKINS'",
-                  default='TEST-PREAMBLE')
+                  help="Filename Preamble to help identify packages in swift. For example 'PAAS-JENKINS'",
+                  default='PREAMBLE-NAME')
 parser.add_option("-c", "--container-name",
                   dest="container_name",
                   action="store",
@@ -27,6 +27,16 @@ parser.add_option("-f", "--file-path",
                   dest="file_paths_to_backup",
                   action="store",
                   help="Comma separated list of directory paths, that will be tar'd, encrypted, and pushed to swift.")
+parser.add_option("-i", "--ignore-path",
+                  dest="dir_paths_to_ignore",
+                  action="store",
+                  help="Comma separated list of directory paths that should be ignored.",
+                  default="")
+parser.add_option("-j", "--ignore-file",
+                  dest="file_paths_to_ignore",
+                  action="store",
+                  help="Comma separated list of file paths that should be ignored.",
+                  default="")
 parser.add_option("-u", "--username",
                   dest="username",
                   action="store",
@@ -97,7 +107,7 @@ for backup_dir_path in backup_dirs_to_swift:
     logger.info("BACKUP DIR: " + backup_dir_path)
     logger.info("BACKUP TAR FILENAME: " + backup_filename)
 
-    tar.create(backup_dir_path, backup_filename)
+    tar.create(backup_dir_path, backup_filename, options.dir_paths_to_ignore, options.file_paths_to_backup)
 
     crypto.encrypt_file(creds.password, backup_filename_tar_gz, backup_filename_encrypted)
 

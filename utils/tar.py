@@ -3,11 +3,12 @@ import os
 import tarfile
 import logging
 
+
 class tar:
     def __init__(self):
         self.logger = logging.getLogger("BACKUP_SWIFTLY")
 
-    def create(self, path, tar_name, list_files_to_ignore=None):
+    def create(self, path, tar_name, dirs_to_ignore="", files_to_ignore=""):
 
         self.assert_path_exists(path)
 
@@ -18,6 +19,10 @@ class tar:
             self.logger.info('Tar and compress path \'%s\' to file with name \'%s\'',path,target_name)
             with tarfile.open(target_name, 'w:gz') as tar:
                 for (path, dirs, files) in os.walk(path):
+
+                    files[:] = [f for f in files if f not in files_to_ignore]
+                    dirs[:] = [d for d in dirs if d not in dirs_to_ignore]
+
                     for file in files:
 
                         filename = os.path.join(path, file)

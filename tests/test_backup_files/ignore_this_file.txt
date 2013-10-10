@@ -1,0 +1,2 @@
+
+file should be ignored if file was in ignore file list

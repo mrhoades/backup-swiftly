@@ -6,7 +6,9 @@ SYNOPSIS:
     Directories to be backed up, will be tar'd, encrypted, and then pushed to SWIFT for safe keeping.
 
 
-EXAMPLES (before running them setup your config like CONFIG INFO below):
+EXAMPLES FOR SCRIPT - backup_to_swift.py
+
+    (before running them setup your config like CONFIG INFO below):
 
     1. Run script locally to backup local files to SWIFT
 
@@ -20,6 +22,17 @@ EXAMPLES (before running them setup your config like CONFIG INFO below):
 
     python download_decrypt_and_upack_swift_files.py -c ./config.json -n Git-Backups -f backup.2013-02-27*mnt-lib-jenkins-plugins.tar.gz
 
+
+
+EXAMPLE FOR SCRIPT - backup_to_swift2.py
+
+    (note that in backup_to_swift2.py, there are switches for all inputs and a config.json file is NOT used)
+
+    (bash script backup-nightly.sh - it performs backup on dated directory created the day prior)
+
+    DATE=`date -d "-1 day" +"%Y.%m.%d"`
+
+    python backup_to_swift2.py -n PAAS-JENKINS -c jenkins.paas.backups -f /jenkins_live -i /jenkins_live/monitoring -u hpcs.paas.swift -p MySecretPassword -t hpcs.paas@hp.com-tenant1
 
 
 
